@@ -1,12 +1,21 @@
+import { validationResult } from "express-validator";
 import Blog from "../models/Blog.js";
 import Comment from "../models/Comment.js";
 
 const createComment = async (req, res) => {
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) {
+		return res.json({
+			success: false,
+			message: "The request contains invalid fields ",
+		});
+	}
 	try {
 		const { content } = req.body;
 		const { blogID } = req.params;
 		const comment = new Comment({
 			content,
+			blog: blogID,
 		});
 		await comment.save();
 

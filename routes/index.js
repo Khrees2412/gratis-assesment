@@ -17,25 +17,31 @@ import {
 	deleteOneComment,
 } from "../controllers/comment.js";
 import express from "express";
+import { body, validationResult } from "express-validator";
+
 const router = express.Router();
 
 //Blog routes
 
 //@route POST api/v1/
 //@desc Create a new blog
-router.post("/blog", create);
-
-//@route GET api/v1/
-//@desc Returns a single blog
-router.get("/blog/:id", getOne);
+router.post(
+	"/blog",
+	body("title").not().isEmpty().trim().escape(),
+	body("body").not().isEmpty().trim().escape(),
+	create
+),
+	//@route GET api/v1/
+	//@desc Returns a single blog
+	router.get("/blog/:id", getOne);
 
 //@route GET api/v1/
 //@desc Returns all blogs
-router.get("/blogs/", getAll);
+router.get("/blogs", getAll);
 
 //@route GET api/v1/
 //@desc Returns a paginated list of all blogs
-router.get("/paginate-blog/", getPaginatedBlogs);
+router.get("/paginate-blog", getPaginatedBlogs);
 
 //@route DELETE api/v1/
 //@desc Deletes a single blog
@@ -54,7 +60,11 @@ router.put("/blog/:id", updateOne);
 
 //@route POST api/v1/comment
 //@desc creates a comment for blog
-router.post("/comment/:blogID", createComment);
+router.post(
+	"/comment/:blogID",
+	body("content").not().isEmpty().trim().escape(),
+	createComment
+);
 
 //@route GET api/v1/
 //@desc Returns a single comment from a blog
@@ -74,6 +84,6 @@ router.put("/comment/:id", updateComment);
 
 //@route DELETE api/v1/
 //@desc Deletes a single comment
-router.delete("/comment/:id/", deleteOneComment);
+router.delete("/comment/:id", deleteOneComment);
 
 export default router;

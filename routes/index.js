@@ -10,8 +10,9 @@ import {
 
 import {
 	createComment,
-	getOneComment,
-	getAllComments,
+	getOneCommentFromBlog,
+	getEveryComment,
+	getAllCommentsFromBlog,
 	updateComment,
 	deleteOneComment,
 } from "../controllers/comment.js";
@@ -57,11 +58,15 @@ router.post("/comment/:blogID", createComment);
 
 //@route GET api/v1/
 //@desc Returns a single comment from a blog
-router.get("/comment/:id/blog/:blogID", getOneComment);
+router.get("/comment/:id/blog/:blogID", getOneCommentFromBlog);
 
 //@route GET api/v1/
 //@desc Returns all comments from a blog
-router.get("/comments/blog/:blogID", getAllComments);
+router.get("/comments/blog/:blogID", getAllCommentsFromBlog);
+
+//@route GET api/v1/
+//@desc Returns all comments in the database
+router.get("/comments", getEveryComment);
 
 //@route PUT api/v1/
 //@desc Updates a single comment

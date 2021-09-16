@@ -27,9 +27,8 @@ const create = async (req, res) => {
 const getOne = async (req, res) => {
 	try {
 		const { id } = req.params;
-		const blog = await Blog.findById({ _id: id })
-			.populate("comments")
-			.exec();
+		const blog = await Blog.findById({ _id: id });
+		// .populate("comments");
 
 		if (blog) {
 			res.status(200).json({

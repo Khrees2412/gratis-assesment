@@ -1,78 +1,78 @@
 import {
-	create,
+	createPost,
 	getOne,
 	getAll,
-	getPaginatedBlogs,
+	getPaginatedPosts,
 	deleteOne,
 	deleteAll,
 	updateOne,
-} from "../controllers/blog.js";
+} from "../controllers/post.js";
 
 import {
 	createComment,
-	getOneCommentFromBlog,
+	getOneCommentFromPost,
 	getEveryComment,
-	getAllCommentsFromBlog,
+	getAllCommentsFromPost,
 	updateComment,
 	deleteOneComment,
 } from "../controllers/comment.js";
 import express from "express";
-import { body, validationResult } from "express-validator";
+import { body } from "express-validator";
 
 const router = express.Router();
 
-//Blog routes
+//post routes
 
 //@route POST api/v1/
-//@desc Create a new blog
+//@desc Create a new post
 router.post(
-	"/blog",
+	"/post",
 	body("title").not().isEmpty().trim().escape(),
 	body("body").not().isEmpty().trim().escape(),
-	create
+	createPost
 ),
 	//@route GET api/v1/
-	//@desc Returns a single blog
-	router.get("/blog/:id", getOne);
+	//@desc Returns a single post
+	router.get("/post/:id", getOne);
 
 //@route GET api/v1/
-//@desc Returns all blogs
-router.get("/blogs", getAll);
+//@desc Returns all posts
+router.get("/posts", getAll);
 
 //@route GET api/v1/
-//@desc Returns a paginated list of all blogs
-router.get("/paginate-blog", getPaginatedBlogs);
+//@desc Returns a paginated list of all posts
+router.get("/paginate-post", getPaginatedPosts);
 
 //@route DELETE api/v1/
-//@desc Deletes a single blog
-router.delete("/blog/:id", deleteOne);
+//@desc Deletes a single post
+router.delete("/post/:id", deleteOne);
 
-//@route DELETE api/v1/blog
-//@desc Deletes all blogs
-router.delete("/blogs", deleteAll);
+//@route DELETE api/v1/post
+//@desc Deletes all blog posts
+router.delete("/posts", deleteAll);
 
-//@route PUT api/v1/blog
-//@desc Updates a blog
+//@route PUT api/v1/post
+//@desc Updates a post
 
-router.put("/blog/:id", updateOne);
+router.put("/post/:id", updateOne);
 
 // Comment Routes
 
 //@route POST api/v1/comment
-//@desc creates a comment for blog
+//@desc creates a comment for a blog post
 router.post(
-	"/comment/:blogID",
+	"/comment/:postID",
 	body("content").not().isEmpty().trim().escape(),
 	createComment
 );
 
 //@route GET api/v1/
-//@desc Returns a single comment from a blog
-router.get("/comment/:id/blog/:blogID", getOneCommentFromBlog);
+//@desc Returns a single comment from a post
+router.get("/comment/:id", getOneCommentFromPost);
 
 //@route GET api/v1/
-//@desc Returns all comments from a blog
-router.get("/comments/blog/:blogID", getAllCommentsFromBlog);
+//@desc Returns all comments from a post
+router.get("/comments/post/:postID", getAllCommentsFromPost);
 
 //@route GET api/v1/
 //@desc Returns all comments in the database

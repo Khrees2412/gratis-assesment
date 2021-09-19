@@ -19,3 +19,58 @@ This serves as my submission for the Gratis Digital junior backend developer pos
 2. Express-validator: Used to validate http request body
 3. Mocha: Used to test the API response ensuring it met all business requirements
 4. Chai: Javascript assertion library used alongside Mocha for testing
+
+# How To Setup
+
+-   Ensure you have node installed on your computer.
+-   Ensure you have yarn installed on your computer, if it isn't, install it through npm using _npm install yarn_. You get _npm_ after you install node at https://nodejs.org
+-   Fork and clone this repo
+-   cd into the path
+-   Open your terminal and type <yarn install>, this will install all the packages needed to run the program
+
+# Routes
+
+## Post routes
+
+/post
+/post/:id"
+
+/api/v1/posts
+
+/apiv1/paginate-post
+
+/post/:id
+
+/posts
+
+/post/:id
+
+## Comment Routes
+
+Add a comment to a blog post
+
+```javascript
+
+POST: https://gratis-test-blog.herokuapp.com/api/v1/comment/[:postID]
+
+request body must contain a blog post id e.g hhf230y1y0ry130yr3
+
+Example response:
+
+{
+    "success":true,
+    "message" :"Comment has been added to blog post"
+}
+
+
+```
+
+/comment/:id
+
+/comments/post/:postID
+
+/comments
+
+/comment/:id
+
+/comment/:id

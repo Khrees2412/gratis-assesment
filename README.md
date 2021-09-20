@@ -22,28 +22,178 @@ This serves as my submission for the Gratis Digital junior backend developer pos
 
 # How To Setup
 
--   Ensure you have node installed on your computer.
--   Ensure you have yarn installed on your computer, if it isn't, install it through npm using _npm install yarn_. You get _npm_ after you install node at https://nodejs.org
--   Fork and clone this repo
--   cd into the path
--   Open your terminal and type <yarn install>, this will install all the packages needed to run the program
+```
+    Open your computer terminal
+
+
+    # Ensure you have node installed on your computer.
+    run *node -v* to check
+
+    # Ensure you have yarn installed on your computer, if it isn't,
+    install it through npm using *npm install yarn*.
+    You get _npm_ after you install node at https://nodejs.org
+
+    # Fork and clone this repo
+    run git clone https://github.com/khrees2412/gratis-assesment
+
+    # cd into the path.
+    run cd gratis-assesment
+
+    run *yarn install* to install all the packages needed to run the program
+
+    # start the server
+    run *yarn start*
+```
 
 # Routes
 
-## Post routes
+## Blog Post routes
 
 /post
-/post/:id"
+Create a blog post
 
-/api/v1/posts
+```javascript
 
-/apiv1/paginate-post
+POST: https://gratis-test-blog.herokuapp.com/api/v1/post
+
+request body must contain a title and content-body
+
+{
+    title:  "The heroes of Gabon",
+    body:   "The men and women that rescued children during the famous Christmas fire"
+}
+
+Example response:
+
+{
+    "success" :  true,
+    "message" : "New Post has been created"
+}
+
+```
 
 /post/:id
+
+```javascript
+
+GET: https://gratis-test-blog.herokuapp.com/api/v1/post/09rh0y3y1u1r0-ur1uu12
+
+Example response:
+
+{
+    "success":  true,
+    "message" : "Found one post",
+    "data" : {
+                title: "The heroes of Gabon",
+                body:"The men and women that rescued children during the famous Christmas fire"
+             }
+}
+
+```
 
 /posts
 
+```javascript
+
+GET: https://gratis-test-blog.herokuapp.com/api/v1/posts
+
+Returns an array of all the blog posts in the database
+
+Example response:
+
+{
+    "success":  true,
+    "message" : "Retrieved all blog posts",
+    "data" : [{
+                title: "The heroes of Gabon",
+                body:  "The men and women that rescued children during the famous Christmas fire"
+            },
+            {
+                title: "The heroes of Italy",
+                body:  "The men and women that rescued children during the famous Christmas avanlache"
+            }]
+}
+
+```
+
+/paginated-posts
+
+```javascript
+
+GET: https://gratis-test-blog.herokuapp.com/api/v1/paginated-posts?limit=2&cursor=2
+
+Returns a paginated array of blog posts
+
+Example response:
+
+{
+    "success":  true,
+    "data" :
+            results :   [{
+                    title: "The heroes of Gabon",
+                    body:  "The men and women that rescued children during the famous Christmas fire"
+                },
+                {
+                    title: "The heroes of Italy",
+                    body:  "The men and women that rescued children during the famous Christmas avanlache"
+                }],
+            nextCursor : 2,
+            itemCount : 2,
+            nextPage : 3
+}
+
+```
+
 /post/:id
+
+```javascript
+
+PUT: https://gratis-test-blog.herokuapp.com/api/v1/post/2r9-r592-93rurd
+
+Update a blog post
+
+Example response:
+
+{
+    "success": true,
+    "message" : "Updated one blog post",
+}
+
+```
+
+/post/:id
+
+```javascript
+
+DELETE: https://gratis-test-blog.herokuapp.com/api/v1/post/2r9-r592-93rurd
+
+Deletes a blog post
+
+Example response:
+
+{
+    "success": true,
+    "message" : "Deleted one blog post",
+}
+
+```
+
+/posts
+
+```javascript
+
+DELETE: https://gratis-test-blog.herokuapp.com/api/v1/posts
+
+Deletes all blog posts in the database
+
+Example response:
+
+{
+    "success": true,
+    "message" : "Deleted all blog posts",
+}
+
+```
 
 ## Comment Routes
 
@@ -53,13 +203,13 @@ Add a comment to a blog post
 
 POST: https://gratis-test-blog.herokuapp.com/api/v1/comment/[:postID]
 
-request body must contain a blog post id e.g hhf230y1y0ry130yr3
+request body must contain a blog post id eg hhf230y1y0ry130yr3
 
 Example response:
 
 {
-    "success":true,
-    "message" :"Comment has been added to blog post"
+    "success" : true,
+    "message" : "Comment has been added to blog post"
 }
 
 

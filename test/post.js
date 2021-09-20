@@ -1,5 +1,5 @@
 import {
-	create,
+	createPost,
 	getOne,
 	getAll,
 	getPaginatedPosts,
@@ -24,8 +24,24 @@ describe("Posts", () => {
 				.get("/api/v1/posts")
 				.end((err, res) => {
 					res.should.have.status(200);
-					expect(res.body).to.be.a("object");
-
+					expect(res.body).to.be.an("object");
+					should.not.Throw(err);
+					done();
+				});
+		});
+	});
+	describe("/POST, create a blog post", () => {
+		it("it should create a new blog post", (done) => {
+			const post = {
+				title: "The heroes of Gabon",
+				body: "They were brave",
+			};
+			chai.request(createPost)
+				.post("/api/v1/post")
+				.send(post)
+				.end((err, res) => {
+					res.should.have.status(201);
+					expect(res.body.data).to.be.a("string");
 					done();
 				});
 		});

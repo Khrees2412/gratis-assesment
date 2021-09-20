@@ -41,7 +41,7 @@ router.get("/posts", getAll);
 
 //@route GET api/v1/
 //@desc Returns a paginated list of all posts
-router.get("/paginate-post", getPaginatedPosts);
+router.get("/paginated-posts", getPaginatedPosts);
 
 //@route DELETE api/v1/
 //@desc Deletes a single post

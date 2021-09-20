@@ -20,7 +20,7 @@ const createPost = async (req, res) => {
 
 		res.status(201).json({
 			success: true,
-			message: "blog post created",
+			message: "New blog post created",
 			data: post,
 		});
 	} catch (error) {
@@ -35,9 +35,9 @@ const createPost = async (req, res) => {
 const getOne = async (req, res) => {
 	try {
 		const { id } = req.params;
-		const post = await Post.findById({ _id: id })
-			.populate("comments")
-			.exec();
+		const post = await Post.findById({ _id: id });
+		// .populate("comments")
+		// .exec();
 
 		if (post) {
 			res.status(200).json({
@@ -60,7 +60,8 @@ const getOne = async (req, res) => {
 };
 const getAll = async (req, res) => {
 	try {
-		const posts = await Post.find({}).populate("comments").exec();
+		const posts = await Post.find({});
+		// .populate("comments").exec();
 
 		res.status(200).json({
 			success: true,
@@ -82,7 +83,7 @@ const getPaginatedPosts = async (req, res) => {
 		const skipIndex = (+cursor - 1) * +limit;
 		const [results, itemCount] = await Promise.all([
 			Post.find({})
-				.populate("comments")
+				// .populate("comments")
 				.sort({ createdAt: 1 })
 				.limit(+limit)
 				.skip(skipIndex)

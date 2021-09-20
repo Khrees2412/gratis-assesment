@@ -1,6 +1,8 @@
 # GRATIS DIGITAL ASSESSMENT
 
-This serves as my submission for the Gratis Digital junior backend developer position. It is a basic NodeJs REST API which fulfils the very basic requirements of a Blog App. It is hosted at https://gratis-test-blog.herokuapp.com
+This serves as my submission for the Gratis Digital Junior Backend Developer position. It is a basic NodeJs REST API which fulfils the very basic requirements of a Blog App. It is hosted at https://gratis-test-blog.herokuapp.com .
+
+All requirements (except tests) for this assessment have been met and can be viewed in this README file
 
 -   A user can create a blog post
 -   A user can view a blog post
@@ -68,7 +70,7 @@ MONGO_URI = mongodb+srv://<Username>:3824hr0380d932C@cluster0.1oyqm.mongodb.net/
 
 ## Blog Post routes
 
-Note: All returned data have "\_id"s (gotten from mongoDB) not included in this doc
+Note: All returned data have "\_id"s (gotten from mongoDB) not exactly included in this doc
 
 /post
 Create a blog post
@@ -87,8 +89,17 @@ request body must contain a title and content-body
 Example response:
 
 {
-    "success" :  true,
-    "message" : "New Post has been created"
+  "success": true,
+  "message": "New blog post created",
+  "data": {
+    "title": "fourth Post",
+    "body": "another one man!",
+    "comments": [],
+    "_id": "614852e373d3707adeabc4ff",
+    "createdAt": "2021-09-20T09:22:43.373Z",
+    "updatedAt": "2021-09-20T09:22:43.373Z",
+    "__v": 0
+  }
 }
 
 ```
@@ -98,19 +109,30 @@ Get a blog post
 
 ```javascript
 
-GET: https://gratis-test-blog.herokuapp.com/api/v1/post/09rh0y3y1u1r0-ur1uu12
+GET: https://gratis-test-blog.herokuapp.com/api/v1/post/61485109061a72b3d64e0950
 Returns a particular blog post
 
-Example response:
-
+Example response (populated with comments):
 {
-    "success":  true,
-    "message" : "Found one post",
-    "data" : {
-                title: "The heroes of Gabon",
-                body:"The men and women that rescued children during the famous Christmas fire"
-             }
-}
+  "success": true,
+  "message": "Found one blog post",
+  "data": {
+    "_id": "61485109061a72b3d64e0950",
+    "title": "third Post",
+    "body": "another one baby!",
+    "comments": [
+      {
+        "_id": "6148515d9db8cc21fa847c00",
+        "post": "61485109061a72b3d64e0950",
+        "content": "Baby comment",
+        "createdAt": "2021-09-20T09:16:13.800Z",
+        "updatedAt": "2021-09-20T09:16:13.800Z",
+        "__v": 0
+      }
+    ],
+    "createdAt": "2021-09-20T09:14:49.605Z",
+    "updatedAt": "2021-09-20T09:16:14.113Z",
+    "__v": 0
 
 ```
 
@@ -126,16 +148,39 @@ Returns an array of all the blog posts in the database
 Example response:
 
 {
-    "success":  true,
-    "message" : "Retrieved all blog posts",
-    "data" : [{
-                title: "The heroes of Gabon",
-                body:  "The men and women that rescued children during the famous Christmas fire"
-            },
-            {
-                title: "The heroes of Italy",
-                body:  "The men and women that rescued children during the famous Christmas avanlache"
-            }]
+  "success": true,
+  "message": "Found all blog posts",
+  "data": [
+    {
+      "_id": "61485078df61d3e17973842b",
+      "title": "First Post",
+      "body": "The start of it all",
+      "comments": [],
+      "createdAt": "2021-09-20T09:12:24.469Z",
+      "updatedAt": "2021-09-20T09:12:24.469Z",
+      "__v": 0
+    },
+    {
+      "_id": "614850d3061a72b3d64e094d",
+      "title": "second Post",
+      "body": "another post",
+      "comments": [],
+      "createdAt": "2021-09-20T09:13:55.328Z",
+      "updatedAt": "2021-09-20T09:13:55.328Z",
+      "__v": 0
+    },
+    {
+      "_id": "61485109061a72b3d64e0950",
+      "title": "third Post",
+      "body": "another one baby!",
+      "comments": [
+        "6148515d9db8cc21fa847c00"
+      ],
+      "createdAt": "2021-09-20T09:14:49.605Z",
+      "updatedAt": "2021-09-20T09:16:14.113Z",
+      "__v": 0
+    }
+  ]
 }
 
 ```
@@ -145,28 +190,36 @@ Get a paginated list of all blog posts
 
 ```javascript
 
-GET: https://gratis-test-blog.herokuapp.com/api/v1/paginated-posts?limit=2&cursor=2
+GET: https://gratis-test-blog.herokuapp.com/api/v1/paginated-posts?limit=2&cursor=1
 
 Returns a paginated array of blog posts
 
 Example response:
-
 {
-    "success":  true,
-    "data" :
-            results :   [{
-                    title: "The heroes of Gabon",
-                    body:  "The men and women that rescued children during the famous Christmas fire"
-                },
-                {
-                    title: "The heroes of Italy",
-                    body:  "The men and women that rescued children during the famous Christmas avanlache"
-                }],
-            nextCursor : 2,
-            itemCount : 2,
-            nextPage : 3
+  "data": [
+    {
+      "_id": "61485078df61d3e17973842b",
+      "title": "First Post",
+      "body": "The start of it all",
+      "comments": [],
+      "createdAt": "2021-09-20T09:12:24.469Z",
+      "updatedAt": "2021-09-20T09:12:24.469Z",
+      "__v": 0
+    },
+    {
+      "_id": "614850d3061a72b3d64e094d",
+      "title": "second Post",
+      "body": "another post",
+      "comments": [],
+      "createdAt": "2021-09-20T09:13:55.328Z",
+      "updatedAt": "2021-09-20T09:13:55.328Z",
+      "__v": 0
+    }
+    ],
+  "nextCursor": 2,
+  "itemCount": 4,
+  "currentPage": 1
 }
-
 ```
 
 /post/:id
@@ -174,17 +227,25 @@ Update a blog post
 
 ```javascript
 
-PUT: https://gratis-test-blog.herokuapp.com/api/v1/post/2r9-r592-93rurd
+PUT: https://gratis-test-blog.herokuapp.com/api/v1/post/614850d3061a72b3d64e094d
 
 Update a blog post
 
 Example response:
 
 {
-    "success": true,
-    "message" : "Updated one blog post",
+  "success": true,
+  "message": "Updated one blog post",
+  "data": {
+    "_id": "614850d3061a72b3d64e094d",
+    "title": "The cool Post",
+    "body": "Good vibes",
+    "comments": [],
+    "createdAt": "2021-09-20T09:13:55.328Z",
+    "updatedAt": "2021-09-20T09:28:09.559Z",
+    "__v": 0
+  }
 }
-
 ```
 
 /post/:id
@@ -192,7 +253,7 @@ Delete a blog post
 
 ```javascript
 
-DELETE: https://gratis-test-blog.herokuapp.com/api/v1/post/2r9-r592-93rurd
+DELETE: https://gratis-test-blog.herokuapp.com/api/v1/post/61485109061a72b3d64e0950
 
 Deletes a blog post
 
@@ -230,17 +291,24 @@ Add a comment to a blog post
 
 ```javascript
 
-POST: https://gratis-test-blog.herokuapp.com/api/v1/comment/27fe1-4ef3214ur3f
+POST: https://gratis-test-blog.herokuapp.com/api/v1/comment/61485078df61d3e17973842b
 
 request body must contain a blog post id eg hhf230y1y0ry130yr3
 
 Example response:
 
 {
-    "success" : true,
-    "message" : "Comment has been added to blog post"
+  "success": true,
+  "message": "Comment added to blog post",
+  "data": {
+    "post": "61485078df61d3e17973842b",
+    "content": "a simple comment",
+    "_id": "6148550e06f1400817d295d8",
+    "createdAt": "2021-09-20T09:31:58.426Z",
+    "updatedAt": "2021-09-20T09:31:58.426Z",
+    "__v": 0
+  }
 }
-
 
 ```
 
@@ -249,19 +317,23 @@ Get a particular comment by id
 
 ```javascript
 
-GET: https://gratis-test-blog.herokuapp.com/api/v1/comment/jjefj20-u3mf-2f3r3
+GET: https://gratis-test-blog.herokuapp.com/api/v1/comment/6148550e06f1400817d295d8
 
 
 Example response:
 
 {
-    "success" : true,
-    "message" : "Found one comment",
-    "data" : {
-        content: "Nice post!"
-    }
+  "success": true,
+  "message": "Found one comment ",
+  "data": {
+    "_id": "6148550e06f1400817d295d8",
+    "post": "61485078df61d3e17973842b",
+    "content": "a simple comment",
+    "createdAt": "2021-09-20T09:31:58.426Z",
+    "updatedAt": "2021-09-20T09:31:58.426Z",
+    "__v": 0
+  }
 }
-
 
 ```
 
@@ -277,20 +349,27 @@ Returns an array of all comments in the database
 Example response:
 
 {
-    "success" : true,
-    "message" : "Retrieved all comments",
-    "data" : [{
-        _id: 1,
-        post: 2921,
-        content: "Nice post!"
+  "success": true,
+  "message": "Retrieved all comments ",
+  "data": [
+    {
+      "_id": "6148515d9db8cc21fa847c00",
+      "post": "61485109061a72b3d64e0950",
+      "content": "Baby comment",
+      "createdAt": "2021-09-20T09:16:13.800Z",
+      "updatedAt": "2021-09-20T09:16:13.800Z",
+      "__v": 0
     },
     {
-        _id: 2,
-        post: 2812,
-        content: "Good post"
-    }]
+      "_id": "6148550e06f1400817d295d8",
+      "post": "61485078df61d3e17973842b",
+      "content": "a simple comment",
+      "createdAt": "2021-09-20T09:31:58.426Z",
+      "updatedAt": "2021-09-20T09:31:58.426Z",
+      "__v": 0
+    }
+  ]
 }
-
 
 ```
 
@@ -304,23 +383,20 @@ GET: https://gratis-test-blog.herokuapp.com/api/v1/comments/post/2921
 Returns an array of all comments  in a blog post
 
 Example response:
-
 {
-    "success" : true,
-    "message" : "Retrieved all comments from blog post",
-    "data" : [{
-        _id: 11122,
-        post: 2921,
-        content: "Nice post!"
-    },
+  "success": true,
+  "message": "Retrieved all comments from blog post",
+  "data": [
     {
-        _id: 11123,
-        post: 2921,
-        content: "Interesting post"
-    }]
+      "_id": "6148571311f8165534bbf12c",
+      "post": "61485078df61d3e17973842b",
+      "content": "another simple comment",
+      "createdAt": "2021-09-20T09:40:35.775Z",
+      "updatedAt": "2021-09-20T09:40:35.775Z",
+      "__v": 0
+    }
+  ]
 }
-
-
 ```
 
 /comment/:id
@@ -328,19 +404,20 @@ Update a blog post
 
 ```javascript
 
-PUT: https://gratis-test-blog.herokuapp.com/api/v1/comment/11122
+PUT: https://gratis-test-blog.herokuapp.com/api/v1/comment/6148550e06f1400817d295d8
 
 
 Example response:
 
 {
-    "success" : true,
-    "message" : "Updated one comment",
-    "data" : {
-        _id : 11122,
-        post: 2921,
-        content: "Best post I've seen"
-    }
+  "success": true,
+  "message": "The comment has been updated",
+  "data": {
+    "_id": "6148550e06f1400817d295d8",
+    "content": "one simple comment",
+    "updatedAt": "2021-09-20T09:44:05.332Z",
+    "createdAt": "2021-09-20T09:44:05.332Z"
+  }
 }
 
 
@@ -351,15 +428,13 @@ Delete a comment
 
 ```javascript
 
-DELETE: https://gratis-test-blog.herokuapp.com/api/v1/comment/11122
+DELETE: https://gratis-test-blog.herokuapp.com/api/v1/comment/6148550e06f1400817d295d8
 
 
 Example response:
-
 {
-    "success" : true,
-    "message" : "Deleted one comment",
+  "success": true,
+  "message": "Comment deleted from blog post"
 }
-
 
 ```

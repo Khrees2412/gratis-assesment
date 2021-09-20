@@ -33,25 +33,25 @@ All requirements (except tests) for this assessment have been met and can be vie
 
 
     # Ensure you have node installed on your computer.
-    run *node -v* to check
+    run `node -v` to check
 
     # Ensure you have yarn installed on your computer, if it isn't,
-    install it through npm using *npm install yarn*.
-    You get _npm_ after you install node at https://nodejs.org
+    install it through npm using *`npm install yarn`.
+    You get **npm** after you install node at https://nodejs.org
 
-    # Fork and clone this repo
-    run git clone https://github.com/khrees2412/gratis-assesment
+    # Clone this repo
+    run `git clone https://github.com/khrees2412/gratis-assesment`
 
     # cd into the path.
-    run cd gratis-assesment
+    run `cd gratis-assesment`
 
-    run *yarn install* to install all the packages needed to run the program
+    run `yarn install` to install all the packages needed to run the program
 
     # start the server
-    run *yarn start*
+    run `yarn start`
 
      # Run the tests
-    run *yarn test*
+    run `yarn test`
 ```
 
 ## Get your MongoDB Atlas URI string from https://mongodb.com

@@ -21,7 +21,7 @@ import { body, param } from "express-validator";
 
 const router = express.Router();
 
-//post routes
+//Blog Post routes
 
 //@route POST api/v1/
 //@desc Create a new post

@@ -11,14 +11,18 @@ This serves as my submission for the Gratis Digital junior backend developer pos
 -   A user can delete a comment
 -   A user can update the details of a comment
 
-# This project was built using Nodejs
+#### This project was built using Nodejs and MongoDB
 
 ### Libraries used
 
 1. Expressjs: Used to create the server and write the APIs
-2. Express-validator: Used to validate http request body
-3. Mocha: Used to test the API response ensuring it met all business requirements
-4. Chai: Javascript assertion library used alongside Mocha for testing
+2. Mongoose: Used as an ODM to query the MOngoDB database
+3. Express-validator: Used to validate http request body
+4. Cors: To enable cross origin resource sharing
+5. Dotenv: Used to load the contents of the .env file
+6. Mocha: Used to test the API response ensuring it met all business requirements
+7. Chai: Javascript assertion library used alongside Mocha for testing
+8. Chai-http : Used alongside Chai
 
 # How To Setup
 
@@ -43,11 +47,28 @@ This serves as my submission for the Gratis Digital junior backend developer pos
 
     # start the server
     run *yarn start*
+
+     # Run the tests
+    run *yarn test*
+```
+
+## Get your MongoDB Atlas URI string from https://mongodb.com
+
+```
+It looks like :
+mongodb+srv://<Username>:3824hr0380d932C@cluster0.1oyqm.mongodb.net/<Database_Name>?retryWrites=true&w=majority
+
+Add to a .env file
+
+MONGO_URI = mongodb+srv://<Username>:3824hr0380d932C@cluster0.1oyqm.mongodb.net/<Database_Name>?retryWrites=true&w=majority
+
 ```
 
 # Routes
 
 ## Blog Post routes
+
+Note: All returned data have "\_id"s (gotten from mongoDB) not included in this doc
 
 /post
 Create a blog post
@@ -73,10 +94,12 @@ Example response:
 ```
 
 /post/:id
+Get a blog post
 
 ```javascript
 
 GET: https://gratis-test-blog.herokuapp.com/api/v1/post/09rh0y3y1u1r0-ur1uu12
+Returns a particular blog post
 
 Example response:
 
@@ -92,6 +115,7 @@ Example response:
 ```
 
 /posts
+Find all available blog posts
 
 ```javascript
 
@@ -117,6 +141,7 @@ Example response:
 ```
 
 /paginated-posts
+Get a paginated list of all blog posts
 
 ```javascript
 
@@ -145,6 +170,7 @@ Example response:
 ```
 
 /post/:id
+Update a blog post
 
 ```javascript
 
@@ -162,6 +188,7 @@ Example response:
 ```
 
 /post/:id
+Delete a blog post
 
 ```javascript
 
@@ -179,6 +206,7 @@ Example response:
 ```
 
 /posts
+Delete all blog posts
 
 ```javascript
 
@@ -197,11 +225,12 @@ Example response:
 
 ## Comment Routes
 
+/comment/:postID
 Add a comment to a blog post
 
 ```javascript
 
-POST: https://gratis-test-blog.herokuapp.com/api/v1/comment/[:postID]
+POST: https://gratis-test-blog.herokuapp.com/api/v1/comment/27fe1-4ef3214ur3f
 
 request body must contain a blog post id eg hhf230y1y0ry130yr3
 
@@ -216,11 +245,121 @@ Example response:
 ```
 
 /comment/:id
+Get a particular comment by id
 
-/comments/post/:postID
+```javascript
+
+GET: https://gratis-test-blog.herokuapp.com/api/v1/comment/jjefj20-u3mf-2f3r3
+
+
+Example response:
+
+{
+    "success" : true,
+    "message" : "Found one comment",
+    "data" : {
+        content: "Nice post!"
+    }
+}
+
+
+```
 
 /comments
+Get a list of all comments available in the database
+
+```javascript
+
+GET: https://gratis-test-blog.herokuapp.com/api/v1/comments
+
+Returns an array of all comments in the database
+
+Example response:
+
+{
+    "success" : true,
+    "message" : "Retrieved all comments",
+    "data" : [{
+        _id: 1,
+        post: 2921,
+        content: "Nice post!"
+    },
+    {
+        _id: 2,
+        post: 2812,
+        content: "Good post"
+    }]
+}
+
+
+```
+
+/comments/post/:postID
+Get a list of all comments available in a blog post
+
+```javascript
+
+GET: https://gratis-test-blog.herokuapp.com/api/v1/comments/post/2921
+
+Returns an array of all comments  in a blog post
+
+Example response:
+
+{
+    "success" : true,
+    "message" : "Retrieved all comments from blog post",
+    "data" : [{
+        _id: 11122,
+        post: 2921,
+        content: "Nice post!"
+    },
+    {
+        _id: 11123,
+        post: 2921,
+        content: "Interesting post"
+    }]
+}
+
+
+```
 
 /comment/:id
+Update a blog post
+
+```javascript
+
+PUT: https://gratis-test-blog.herokuapp.com/api/v1/comment/11122
+
+
+Example response:
+
+{
+    "success" : true,
+    "message" : "Updated one comment",
+    "data" : {
+        _id : 11122,
+        post: 2921,
+        content: "Best post I've seen"
+    }
+}
+
+
+```
 
 /comment/:id
+Delete a comment
+
+```javascript
+
+DELETE: https://gratis-test-blog.herokuapp.com/api/v1/comment/11122
+
+
+Example response:
+
+{
+    "success" : true,
+    "message" : "Deleted one comment",
+}
+
+
+```

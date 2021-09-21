@@ -28,29 +28,46 @@ All requirements (except tests) for this assessment have been met and can be vie
 
 # How To Setup
 
-```
     Open your computer terminal
 
-
+```
     # Ensure you have node installed on your computer.
     run `node -v` to check
+```
 
-    # Ensure you have yarn installed on your computer, if it isn't,
-    install it through npm using *`npm install yarn`.
+#Ensure you have yarn installed on your computer, if it isn't,
+install it through npm using
+
+```
+    `npm install yarn`.
     You get **npm** after you install node at https://nodejs.org
+```
 
-    # Clone this repo
+#Clone this repo
+
+```
     run `git clone https://github.com/khrees2412/gratis-assesment`
+```
 
-    # cd into the path.
+#cd into the path.
+
+```
     run `cd gratis-assesment`
+```
 
+```
     run `yarn install` to install all the packages needed to run the program
+```
 
-    # start the server
+#start the server
+
+```
     run `yarn start`
+```
 
-     # Run the tests
+#Run the tests
+
+```
     run `yarn test`
 ```
 
@@ -82,8 +99,8 @@ POST: https://gratis-test-blog.herokuapp.com/api/v1/post
 request body must contain a title and content-body
 
 {
-    title:  "The heroes of Gabon",
-    body:   "The men and women that rescued children during the famous Christmas fire"
+    title:  "Fourth Post",
+    body:   "another one man!"
 }
 
 Example response:

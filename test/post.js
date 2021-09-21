@@ -19,19 +19,18 @@ chai.use(chaiHttp);
 
 describe("Posts", () => {
 	describe("/GET posts", () => {
-		it("it should get all blog posts", (done) => {
-			chai.request(app)
+		it(" should get all blog posts", (done) => {
+			chai.request(getAll)
 				.get("/api/v1/posts")
 				.end((err, res) => {
 					res.should.have.status(200);
 					expect(res.body).to.be.an("object");
-					should.not.Throw(err);
-					done();
 				});
+			done();
 		});
 	});
 	describe("/POST, create a blog post", () => {
-		it("it should create a new blog post", (done) => {
+		it("should create a new blog post", (done) => {
 			const post = {
 				title: "The heroes of Gabon",
 				body: "They were brave",
@@ -42,8 +41,8 @@ describe("Posts", () => {
 				.end((err, res) => {
 					res.should.have.status(201);
 					expect(res.body.data).to.be.a("string");
-					done();
 				});
+			done();
 		});
 	});
 });

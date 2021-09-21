@@ -1,6 +1,6 @@
 import {
 	createComment,
-	getOneCommentFromPost,
+	getOneComment,
 	getEveryComment,
 	getAllCommentsFromPost,
 	updateComment,
@@ -19,13 +19,32 @@ chai.use(chaiHttp);
 describe("Comment", () => {
 	describe("Get all comments", () => {
 		it("returns a list of all comments in the database", (done) => {
-			chai.request(app)
+			chai.request(getEveryComment)
 				.get("/api/v1/comments")
+
 				.end((err, res) => {
 					const { body } = res;
 					expect(200);
 					expect(body.data).to.be.an("array");
 				});
+			done();
+		});
+	});
+	describe("Create a comment", () => {
+		it("creates a new comment", (done) => {
+			const postID = "614852e373d3707adeabc4ff";
+			const body = {
+				content: "I love this post",
+			};
+			chai.request(createComment)
+				.get(`/api/v1/comment/${postID}`)
+				.send(body)
+				.end((err, res) => {
+					const { body } = res;
+					expect(200);
+					expect(body.data).to.be.an("array");
+				});
+			done();
 		});
 	});
 });

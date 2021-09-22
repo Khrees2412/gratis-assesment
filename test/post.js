@@ -1,13 +1,9 @@
 import {
 	createPost,
-	getOne,
 	getAll,
-	getPaginatedPosts,
 	deleteOne,
-	deleteAll,
 	updateOne,
 } from "../controllers/post.js";
-import Blog from "../models/Post.js";
 
 import app from "../index.js";
 import chai from "chai";
@@ -24,12 +20,11 @@ describe("Posts", () => {
 				.get("/api/v1/posts", getAll)
 				.end((err, res) => {
 					res.should.have.status(200);
-					expect(res.body).to.be.an("object");
 				});
 			done();
 		});
 	});
-	describe("/POST, create a blog post", () => {
+	describe("/POST a blog post", () => {
 		it("should create a new blog post", (done) => {
 			const post = {
 				title: "The heroes of Gabon",
@@ -40,12 +35,11 @@ describe("Posts", () => {
 				.send(post)
 				.end((err, res) => {
 					res.should.have.status(201);
-					expect(res.body.data).to.be.a("string");
 				});
 			done();
 		});
 	});
-	describe("/PUT updates a blog post", () => {
+	describe("/PUT  a blog post", () => {
 		it("should update the title and body of a blog post", (done) => {
 			const newpost = {
 				title: "The heroes of Italy",
@@ -57,7 +51,17 @@ describe("Posts", () => {
 				.send(newpost)
 				.end((err, res) => {
 					res.should.have.status(201);
-					expect(res.body).to.be.a("object");
+				});
+			done();
+		});
+	});
+	describe("/DELETE a blog post", () => {
+		it("should delete a blog post", (done) => {
+			const postID = "614852e373d3707adeabc4ff";
+			chai.request(app)
+				.delete(`/api/v1/post/${postID}`, deleteOne)
+				.end((err, res) => {
+					res.should.have.status(201);
 				});
 			done();
 		});

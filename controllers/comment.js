@@ -48,7 +48,7 @@ const getOneComment = async (req, res) => {
 	try {
 		const { id } = req.params;
 		const comment = await Comment.findOne({ _id: id });
-		res.status(201).json({
+		res.status(200).json({
 			success: true,
 			message: "Found one comment ",
 			data: comment,
@@ -73,7 +73,7 @@ const getAllCommentsFromPost = async (req, res) => {
 	try {
 		const { postID } = req.params;
 		const comments = await Comment.find({ post: postID });
-		res.status(201).json({
+		res.status(200).json({
 			success: true,
 			message: "Retrieved all comments from blog post",
 			data: comments,
@@ -97,7 +97,7 @@ const getEveryComment = async (req, res) => {
 	}
 	try {
 		const comments = await Comment.find({});
-		res.status(201).json({
+		res.status(200).json({
 			success: true,
 			message: "Retrieved all comments ",
 			data: comments,

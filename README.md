@@ -2,7 +2,7 @@
 
 This serves as my submission for the Gratis Digital Junior Backend Developer position. It is a basic NodeJs REST API which fulfils the very basic requirements of a Blog App. It is hosted at https://gratis-test-blog.herokuapp.com .
 
-All requirements (except tests) for this assessment have been met and can be viewed in this README file
+All requirements for this assessment have been met and can be viewed in this README file.
 
 -   A user can create a blog post
 -   A user can view a blog post
@@ -12,6 +12,16 @@ All requirements (except tests) for this assessment have been met and can be vie
 -   A user can view a comment on a post
 -   A user can delete a comment
 -   A user can update the details of a comment
+
+# Special Attention
+
+I implemented a many-to-one relationship between the Blog post and the comments. You get a populated array of comments for every post.
+
+I decoupled the routes handler from the routes to enable easy project maintenance.
+
+I used express validator library to validate the request body to ensure proper the basic requirements were met.
+
+I implemented basic testing of controllers to ensure the routes worked with the right request body.
 
 #### This project was built using Nodejs and MongoDB
 
@@ -395,7 +405,7 @@ Get a list of all comments available in a blog post
 
 ```javascript
 
-GET: https://gratis-test-blog.herokuapp.com/api/v1/comments/post/2921
+GET: https://gratis-test-blog.herokuapp.com/api/v1/comments/post/61485078df61d3e17973842b
 
 Returns an array of all comments  in a blog post
 

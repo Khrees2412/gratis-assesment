@@ -19,8 +19,8 @@ chai.use(chaiHttp);
 describe("Comment", () => {
 	describe("Get all comments", () => {
 		it("returns a list of all comments in the database", (done) => {
-			chai.request(getEveryComment)
-				.get("/api/v1/comments")
+			chai.request(app)
+				.get("/api/v1/comments", getEveryComment)
 
 				.end((err, res) => {
 					const { body } = res;
@@ -36,8 +36,8 @@ describe("Comment", () => {
 			const body = {
 				content: "I love this post",
 			};
-			chai.request(createComment)
-				.get(`/api/v1/comment/${postID}`)
+			chai.request(app)
+				.get(`/api/v1/comment/${postID}`, createComment)
 				.send(body)
 				.end((err, res) => {
 					const { body } = res;

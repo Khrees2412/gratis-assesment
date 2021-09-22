@@ -40,9 +40,7 @@ describe("Comment", () => {
 				.get(`/api/v1/comment/${postID}`, createComment)
 				.send(body)
 				.end((err, res) => {
-					const { body } = res;
-					expect(200);
-					expect(body.data).to.be.an("array");
+					res.should.have.status(201);
 				});
 			done();
 		});

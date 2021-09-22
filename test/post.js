@@ -53,11 +53,11 @@ describe("Posts", () => {
 			};
 			const postID = "614852e373d3707adeabc4ff";
 			chai.request(app)
-				.put(`/api/v1/post${postID}`, updateOne)
+				.put(`/api/v1/post/${postID}`, updateOne)
 				.send(newpost)
 				.end((err, res) => {
 					res.should.have.status(201);
-					expect(res.body.data).to.be.a("object");
+					expect(res.body).to.be.a("object");
 				});
 			done();
 		});

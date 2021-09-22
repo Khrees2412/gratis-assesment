@@ -19,7 +19,7 @@ I implemented a many-to-one relationship between the Blog post and the comments.
 
 I decoupled the routes handler from the routes to enable easy project maintenance.
 
-I used express validator library to validate the request body to ensure proper the basic requirements were met.
+I used the express-validator library to validate the request body to ensure the basic requirements were met.
 
 I implemented basic testing of controllers to ensure the routes worked with the right request body.
 
